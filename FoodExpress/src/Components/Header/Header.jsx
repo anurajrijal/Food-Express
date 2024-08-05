@@ -7,8 +7,8 @@ export default function Header() {
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <Link to="/" className="flex items-center">
                         <img
-                            src="https://alexharkness.com/wp-content/uploads/2020/06/logo-2.png"
-                            className="mr-3 h-12"
+                            src="https://cdn.leonardo.ai/users/5e3ec570-11e2-4cad-a7cc-5ef68f18753e/generations/100c985f-3677-424b-8b1a-91548bdd12ee/Default_A_creatively_designed_logo_for_Food_Express_featuring_1.jpg?w=512"
+                            className="mr-6 h-20 rounded-lg"
                             alt="Logo"
                         />
                     </Link>
@@ -41,8 +41,47 @@ export default function Header() {
                                     Home
                                 </NavLink>
                             </li>
-                         
-                          
+                            <li>
+                                <NavLink
+                                to="/menu"
+                                    className={({isActive}) =>
+                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ?"text-orange-700":"text-gray-700"}  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                    }
+                                >
+                                   Menu
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                to="/shop"
+                                    className={({isActive}) =>
+                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ?"text-orange-700":"text-gray-700"}  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                    }
+                                >
+                                  Shop
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                to="/about"
+                                    className={({isActive}) =>
+                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ?"text-orange-700":"text-gray-700"}  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                    }
+                                >
+                                  About us
+                                </NavLink>
+                            </li>
+                           
+                            <li>
+                                <NavLink
+                                to="/contact"
+                                    className={({isActive}) =>
+                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ?"text-orange-700":"text-gray-700"}  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                    }
+                                >
+                                 Contact
+                                </NavLink>
+                            </li>
                           
                            
                             
