@@ -12,6 +12,11 @@ function Shop() {
         
         price="$50"
         />
+        <Card foodname="Pizza"
+        details="a delicious pizza"
+        image="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e1b47097-77bf-4b52-bf8d-bb1226efa000/dhwc7vt-7e492f1b-84f2-4856-bb91-00b226a4e333.png/v1/fill/w_250,h_250,q_70,strp/tatto_girl_beautiful_by_thorkiller325_dhwc7vt-250t.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiJcL2ZcL2UxYjQ3MDk3LTc3YmYtNGI1Mi1iZjhkLWJiMTIyNmVmYTAwMFwvZGh3Yzd2dC03ZTQ5MmYxYi04NGYyLTQ4NTYtYmI5MS0wMGIyMjZhNGUzMzMucG5nIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.SF4kdwyinNoWTkn7Zhhsv56Ogsni5BwLY1XnnwLk6OU"
+        price="$70"
+        />
         </>
     )
 }
