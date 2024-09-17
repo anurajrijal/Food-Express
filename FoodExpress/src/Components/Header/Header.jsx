@@ -30,7 +30,7 @@ const Header = () => {
             <rect x="14" y="11" width="7" height="12" />
           </svg>
           <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-            Food Express    
+            Food Express
           </span>
         </Link>
         <ul
@@ -39,31 +39,31 @@ const Header = () => {
           <li>
             <a
               href="/"
-              aria-label="Our product"
-              title="Our product"
-              className={`${styles["listItems"]} font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400`}
+              aria-label="Orders"
+              title="Orders"
+              className={`${styles["listItems"]} font-medium tracking-wide  transition-colors duration-200 hover:text-deep-purple-accent-400`}
             >
-              Product
+              Orders
             </a>
           </li>
           <li>
             <a
               href="/"
-              aria-label="Our product"
-              title="Our product"
-              className={`${styles["listItems"]} font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400`}
+              aria-label="Payment/Delivery"
+              title="Payment/Delivery"
+              className={`${styles["listItems"]} font-medium tracking-wide  transition-colors duration-200 hover:text-deep-purple-accent-400`}
             >
-              Features
+              Payment/Delivery
             </a>
           </li>
           <li>
             <a
               href="/"
-              aria-label="Product pricing"
-              title="Product pricing"
-              className={`${styles["listItems"]} font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400`}
+              aria-label="Reviews"
+              title="Reviews"
+              className={`${styles["listItems"]} font-medium tracking-wide  transition-colors duration-200 hover:text-deep-purple-accent-400`}
             >
-              Pricing
+              Riviews
             </a>
           </li>
           <li>
@@ -71,20 +71,20 @@ const Header = () => {
               to="/about"
               aria-label="About us"
               title="About us"
-              className={`${styles["listItems"]} font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400`}
+              className={`${styles["listItems"]} font-medium tracking-wide  transition-colors duration-200 hover:text-deep-purple-accent-400`}
             >
               About Us
             </Link>
           </li>
           <li>
-            <a
-              href="/"
+            <Link
+              to="/account"
               className={`${styles["btnS"]} inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide`}
-              aria-label="Sign up"
-              title="Sign up"
+              aria-label="Login"
+              title="Login"
             >
-              Sign up
-            </a>
+              Login
+            </Link>
           </li>
         </ul>
         <div className="lg:hidden">

@@ -4,7 +4,7 @@ import styles from "./About.module.css";
 function About() {
     return (
       <>
-        <div className={`${styles["container"]} card lg:card-side  shadow-xl`}>
+        <div className={`${styles["container"]} card lg:card-side  `}>
           <figure>
             <img
               className={`${styles["img1"]} `}
