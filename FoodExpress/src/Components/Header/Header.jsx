@@ -1,10 +1,43 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
+import Cookies from 'js-cookie'; // Import js-cookie
+import axiosInstance from "../../config/axiosInstance"; // Axios instance
 
 const Header = () => {
+  const token = Cookies.get('token');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      // Retrieve the token from cookies
+      const token = Cookies.get('token');
+  
+      if (!token) {
+        console.log('No token found, user is not logged in.');
+        return;
+      }
+  
+      // Call the backend logout endpoint, include the token in the headers
+      const response = await axiosInstance.post('/v1/users/logout', {}, {
+        headers: {
+          Authorization: `Bearer ${token}` // Send the token in the Authorization header
+        }
+      });
+  
+      console.log('Logout response:', response.data);
+  
+      // Clear the token from cookies
+      Cookies.remove('token', { secure: true, sameSite: 'Strict' });
+      alert('You have been logged out.');
+  
+      // Redirect to the homepage after successful logout
+      navigate('/');
+    } catch (error) {
+      console.error('Error during logout:', error.response?.data || error.message);
+      alert('An error occurred during logout. Please try again.');
+    }
+  };
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <div className="relative flex items-center justify-between">
@@ -37,34 +70,44 @@ const Header = () => {
           className={`${styles["list"]} flex items-center hidden space-x-8 lg:flex`}
         >
           <li>
-            <a
-              href="/"
+            <Link
+              to="/menu"
+              aria-label="Menu"
+              title="Menu"
+              className={`${styles["listItems"]} font-medium tracking-wide  transition-colors duration-200 hover:text-deep-purple-accent-400`}
+            >
+              Menu
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/orders"
               aria-label="Orders"
               title="Orders"
               className={`${styles["listItems"]} font-medium tracking-wide  transition-colors duration-200 hover:text-deep-purple-accent-400`}
             >
               Orders
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/"
+              <Link
+              to="/"
               aria-label="Payment/Delivery"
               title="Payment/Delivery"
               className={`${styles["listItems"]} font-medium tracking-wide  transition-colors duration-200 hover:text-deep-purple-accent-400`}
             >
               Payment/Delivery
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="/"
+            <Link
+              to="/"
               aria-label="Reviews"
               title="Reviews"
               className={`${styles["listItems"]} font-medium tracking-wide  transition-colors duration-200 hover:text-deep-purple-accent-400`}
             >
               Riviews
-            </a>
+            </Link>
           </li>
           <li>
             <Link
@@ -77,15 +120,26 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link
-              to="/account"
-              className={`${styles["btnS"]} inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide`}
-              aria-label="Login"
-              title="Login"
-            >
-              Login
-            </Link>
-          </li>
+      {token ? (
+        <button
+          onClick={handleLogout}
+          className={`${styles["btnS"]} inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide`}
+          aria-label="Logout"
+          title="Logout"
+        >
+          Logout
+        </button>
+      ) : (
+        <Link
+          to="/account"
+          className={`${styles["btnS"]} inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide`}
+          aria-label="Login"
+          title="Login"
+        >
+          Login
+        </Link>
+      )}
+    </li>
         </ul>
         <div className="lg:hidden">
           <button

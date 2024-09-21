@@ -33,7 +33,7 @@ function App() {
         <Route path="shop" element={SuspendedComponent(Shop)} />
         <Route path="about" element={SuspendedComponent(About)} />
         <Route path="contact" element={SuspendedComponent(Contact)} />
-        <Route path="account" element={SuspendedComponent(Account)} /> {/* Added Account Route */}
+        <Route path="account" element={SuspendedComponent(Account)} /> 
       </Route>
     )
   );
