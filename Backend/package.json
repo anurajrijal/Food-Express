@@ -1,0 +1,22 @@
+{
+  "name": "foodexpressbackend",
+  "version": "1.0.0",
+  "description": "Food delivery web application backend built with Mern stack",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Anuraj Rijal",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "prettier": "^3.3.3"
+  }
+}
