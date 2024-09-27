@@ -11,7 +11,7 @@ const manageUserRole= asyncHandler(async(req,res)=>{
 
 
     // check if the new role is valid
-    const validRoles= ["admin","user","manager"]
+    const validRoles= ["admin","user"]
     if(!validRoles.includes(role)){
         throw new ApiError(400, "Invalid role");
     }

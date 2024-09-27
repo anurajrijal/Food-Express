@@ -46,14 +46,24 @@ router.route("/avatar").patch(verifyJWT, upload.single("avatar"),updateUserAvata
 // Google Auth routes
 router.get('/auth/google/callback', passport.authenticate('google'), async (req, res) => {
     try {
-        const token = jwt.sign({ _id: req.user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRY });
+        if (!req.user) {
+            return res.status(401).json({ message: "User not found." });
+        }
+
+        const token = jwt.sign(
+            { _id: req.user._id },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
+        );
+
         res.cookie('accessToken', token, { httpOnly: true });
 
         // Update the user's avatar
         const avatarUrl = req.user.photos[0].value; // Get the avatar URL from Google profile
         await User.findByIdAndUpdate(req.user._id, { avatar: avatarUrl }, { new: true });
 
-        res.redirect('http://your-frontend-url.com/dashboard');
+        // Redirect to the frontend application
+        res.redirect('http://localhost:5173/');
     } catch (error) {
         console.error("Error during Google authentication:", error);
         res.status(500).json({ message: "Authentication failed." });
