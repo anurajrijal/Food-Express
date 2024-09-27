@@ -16,6 +16,7 @@ const Shop = lazy(() => import("./Pages/Shop/Shop.jsx"));
 const About = lazy(() => import("./Pages/About/About.jsx"));
 const Contact = lazy(() => import("./Pages/Contact/Contact.jsx"));
 const Account = lazy(() => import("./Pages/Account/Account.jsx"));
+const Checkout = lazy(() => import("./Pages/Checkout/Checkout.jsx"));
 
 // Helper function to wrap lazy-loaded components with Suspense
 const SuspendedComponent = (Component) => (
@@ -33,7 +34,8 @@ function App() {
         <Route path="shop" element={SuspendedComponent(Shop)} />
         <Route path="about" element={SuspendedComponent(About)} />
         <Route path="contact" element={SuspendedComponent(Contact)} />
-        <Route path="account" element={SuspendedComponent(Account)} /> 
+        <Route path="account" element={SuspendedComponent(Account)} />
+        <Route path="checkout" element={SuspendedComponent(Checkout)} />
       </Route>
     )
   );

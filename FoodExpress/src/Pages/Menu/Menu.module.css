@@ -1,0 +1,68 @@
+.grid {
+   margin: 50px;
+   width: 100%;
+   z-index: 20;
+}
+
+/* Add styles for the floating card */
+.floatingCard {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; /* Adjust width based on preference */
+    max-width: 400px; /* Maximum width for the card */
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.2); /* Glass effect background */
+    backdrop-filter: blur(10px); /* Background blur for glassmorphism */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Add an overlay behind the floating card */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Dim the background */
+    z-index: 999;
+}
+
+/* Add blur effect to the main content */
+.blur {
+    filter: blur(5px);
+    background: rgba(255, 255, 255, 0.2); /* Glass effect background */
+    backdrop-filter: blur(10px); /* Background blur for glassmorphism */
+    transition: filter 0.5s ease-in-out; /* Smoother transition */
+}
+
+/* Prevent scrolling */
+.no-scroll {
+    overflow: hidden;
+}
+
+/* cart iteam  */
+.fixed-cart-icon {
+    position: fixed;
+    top: 1.25rem; /* Adjusts top spacing */
+    right: 1.25rem; /* Adjusts right spacing */
+    z-index: 50;
+  }
+  
+  .cart-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    background-color: red;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+  }
+  
