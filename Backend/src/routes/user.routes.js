@@ -44,19 +44,21 @@ router.route("/avatar").patch(verifyJWT, upload.single("avatar"),updateUserAvata
 
 
 // Google Auth routes
-router.get('/auth/google/callback', passport.authenticate('google'), async (req, res) => {
+router.get('/auth/google',verifyJWT, passport.authenticate('google', { scope: ['profile', 'email'] })); // Added Google auth initiation route
+
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), async (req, res) => {
     try {
         const token = jwt.sign({ _id: req.user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRY });
-        res.cookie('accessToken', token, { httpOnly: true });
+        res.cookie('accessToken', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'Lax' });
 
         // Update the user's avatar
-        const avatarUrl = req.user.photos[0].value; // Get the avatar URL from Google profile
+        const avatarUrl = req.user.avatar; // Changed to use req.user.avatar
         await User.findByIdAndUpdate(req.user._id, { avatar: avatarUrl }, { new: true });
 
-        res.redirect('http://your-frontend-url.com/dashboard');
+        res.redirect(`${process.env.FRONTEND_URL}/login-success`); // Updated redirect URL
     } catch (error) {
         console.error("Error during Google authentication:", error);
-        res.status(500).json({ message: "Authentication failed." });
+        res.redirect(`${process.env.FRONTEND_URL}/login-error`); // Updated redirect URL
     }
 });
 
