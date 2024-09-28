@@ -14,7 +14,7 @@ import {upload} from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { manageUserRole, getAllUsers,deleteUser } from "../controllers/admin.controller.js";
 import { authorizeRoles } from "../middlewares/role.middleware.js";
-
+import { User } from "../models/user.model.js";
 const router=Router()
 
 router.route("/register").post(
@@ -44,23 +44,43 @@ router.route("/avatar").patch(verifyJWT, upload.single("avatar"),updateUserAvata
 
 
 // Google Auth routes
-router.get('/auth/google',verifyJWT, passport.authenticate('google', { scope: ['profile', 'email'] })); // Added Google auth initiation route
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), async (req, res) => {
+router.get('/auth/google/callback', passport.authenticate('google', { session: false }), async (req, res) => {
+    // Google OAuth callback logic
     try {
-        const token = jwt.sign({ _id: req.user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRY });
-        res.cookie('accessToken', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'Lax' });
+        let user = await User.findOne({ googleId: req.user.googleId });
 
-        // Update the user's avatar
-        const avatarUrl = req.user.avatar; // Changed to use req.user.avatar
-        await User.findByIdAndUpdate(req.user._id, { avatar: avatarUrl }, { new: true });
+        if (!user) {
+            user = new User({
+                username: req.user.displayName,
+                email: req.user.emails[0].value,
+                avatar: req.user.photos[0].value,
+                googleId: req.user.googleId,
+            });
+            await user.save();
+        }
 
-        res.redirect(`${process.env.FRONTEND_URL}/login-success`); // Updated redirect URL
+        const accessToken = user.generateAccessToken();
+        const refreshToken = user.generateRefreshToken();
+
+        res.json({
+            success: true,
+            accessToken,
+            refreshToken,
+            user: {
+                _id: user._id,
+                username: user.username,
+                email: user.email,
+                avatar: user.avatar,
+            },
+        });
     } catch (error) {
-        console.error("Error during Google authentication:", error);
-        res.redirect(`${process.env.FRONTEND_URL}/login-error`); // Updated redirect URL
+        console.error("Google callback error:", error);
+        res.status(500).json({ message: "Authentication failed." });
     }
 });
+
 
 
 // Admin routes

@@ -21,7 +21,9 @@ const userSchema = new Schema(
         },
         fullName:{
             type:String,
-            required: [true,'Fullname is required'],
+            required:function() {
+                return !this.googleId; // fullName required only if not using Google OAuth
+            },
             lowercase:true,
             trim:true,
             index:true,
@@ -37,7 +39,9 @@ const userSchema = new Schema(
        },
         password:{
             type:String,
-            required:[true,'Password is required']
+            required:function() {
+                return !this.googleId; // password required only for non-OAuth users
+            },
         },
         googleId:{
             type:String,
