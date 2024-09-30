@@ -65,17 +65,16 @@ router.get('/auth/google/callback', passport.authenticate('google', { session: f
 
     // Set the access token as an HTTP-only cookie
     res.cookie('token', accessToken, {
-      httpOnly: true, // Protect the cookie from being accessed by JavaScript
-      secure: process.env.NODE_ENV === 'production', // Set to true in production
-      sameSite: 'Strict', // Control the same-site cookie policy
+      httpOnly: false, // Protect the cookie from being accessed by JavaScript
+      sameSite: 'lax', // Control the same-site cookie policy
       maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
     });
 
     // Optionally set the refresh token in a cookie
     res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Set to true in production
-      sameSite: 'Strict',
+      httpOnly: false,
+      
+      sameSite: 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days expiration
     });
 

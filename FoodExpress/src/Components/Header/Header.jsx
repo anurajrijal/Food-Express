@@ -10,27 +10,31 @@ const Header = () => {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      // Retrieve the token from cookies
       const token = Cookies.get('token');
-  
       if (!token) {
         console.log('No token found, user is not logged in.');
         return;
       }
-  
+
       // Call the backend logout endpoint, include the token in the headers
       const response = await axiosInstance.post('/v1/users/logout', {}, {
         headers: {
           Authorization: `Bearer ${token}` // Send the token in the Authorization header
         }
       });
-  
+
       console.log('Logout response:', response.data);
-  
-      // Clear the token from cookies
-      Cookies.remove('token', { secure: true, sameSite: 'Strict' });
+
+      // Clear all cookies
+      const allCookies = document.cookie.split(';');
+      for (let cookie of allCookies) {
+        const cookieName = cookie.split('=')[0].trim();
+        Cookies.remove(cookieName, { path: '/' });
+      }
+      console.log('All cookies have been cleared.');
+
       alert('You have been logged out.');
-  
+
       // Redirect to the homepage after successful logout
       navigate('/');
     } catch (error) {
