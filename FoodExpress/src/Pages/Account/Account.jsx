@@ -42,9 +42,10 @@ function Account() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleGoogleLogin = () => { // Removed async/await
+  const handleGoogleLogin = () => {
+    // Removed async/await
     // Redirect to Google Auth
-    window.location.href = 'http://localhost:8000/api/v1/users/auth/google'; // Changed to redirect
+    window.location.href = "http://localhost:8000/api/v1/users/auth/google"; // Changed to redirect
   };
 
   const handleSubmit = async (e) => {
@@ -68,7 +69,12 @@ function Account() {
         alert("Login successful!");
 
         // Save token in cookies
-        Cookies.set("token", token, { secure: false, sameSite: "none" });
+        // After successful login, set the cookie
+        Cookies.set("token", token, {
+          path: "/", // Accessible across the whole site
+          secure: false, // Set to false for localhost
+          sameSite: "Lax", // Adjust according to your needs
+        });
 
         // Navigate to the home page
         navigate("/");

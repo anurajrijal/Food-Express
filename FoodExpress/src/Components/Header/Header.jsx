@@ -31,7 +31,6 @@ const Header = () => {
         const cookieName = cookie.split('=')[0].trim();
         Cookies.remove(cookieName, { path: '/' });
       }
-      console.log('All cookies have been cleared.');
 
       alert('You have been logged out.');
 
