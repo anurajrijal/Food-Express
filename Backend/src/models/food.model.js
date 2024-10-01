@@ -21,6 +21,11 @@ const foodSchema = new Schema({
         type:String,
         required:true
     },
+    category:{
+        type:String,
+        enum:['breakfast', 'lunch', 'dinner', 'snack'],
+        required:true
+    },
 
 },{timestamps:true})
 export const Food = mongoose.model("Food",foodSchema)
