@@ -102,5 +102,5 @@ router.delete('/users/:id', verifyJWT, authorizeRoles('admin'), deleteUser);
 router.post('/food',verifyJWT,authorizeRoles('admin'),upload.single('fimage'),addFood);
 router.patch('/upadtefood',verifyJWT, authorizeRoles('admin'), upload.single('fimage'),updateFoodItem);
 router.delete('/deletefood',verifyJWT,authorizeRoles('admin'),deleteFood);
-router.get('/allfood',verifyJWT,authorizeRoles('admin'),getAllFoodItems);
+router.get('/allfood',getAllFoodItems);
 export default router;
