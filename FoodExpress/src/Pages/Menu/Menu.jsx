@@ -8,7 +8,6 @@ function Menu() {
   const [cartItems, setCartItems] = useState([]);
   const details = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
-  // Function to add items to cart or update existing item's quantity and price
   const handleAddToCart = (newItem) => {
     setCartItems((prevItems) => {
       const existingItemIndex = prevItems.findIndex(
@@ -26,7 +25,6 @@ function Menu() {
     });
   };
 
-  // Function to update quantity in cart (and also reflect it on the menu card)
   const handleUpdateCartItem = (foodname, action) => {
     setCartItems((prevItems) =>
       prevItems.map((item) => {
@@ -51,17 +49,13 @@ function Menu() {
     );
   };
 
-  // Remove item from cart
   const handleRemoveFromCart = (foodname) => {
     setCartItems((prevItems) =>
       prevItems.filter((item) => item.foodname !== foodname)
     );
   };
 
-  // Calculate total items (for badge on cart icon)
   const totalItems = cartItems.length;
-
-  // Calculate total price for checkout button
   const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
 
   const toggleCart = () => {
@@ -73,9 +67,7 @@ function Menu() {
 
   return (
     <>
-      {/* Cart icon with item count */}
       <div className="fixed top-5 right-5 z-50">
-        {/* Cart Icon */}
         <svg
           onClick={toggleCart}
           xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +84,6 @@ function Menu() {
           />
         </svg>
 
-        {/* Cart Item Count Badge */}
         {totalItems > 0 && (
           <span className="absolute top-0 right-0 transform translate-x-2 translate-y-[-2] inline-block w-6 h-6 text-center text-white bg-red-500 rounded-full">
             {totalItems}
@@ -102,7 +93,7 @@ function Menu() {
 
       <h1 className="text-pink-300 mx-auto w-full max-w-7xl">Menu</h1>
       <div
-        className={`${styles["grid"]} grid grid-cols-3 auto-rows-auto gap-4 z-20`}
+        className={`${styles.grid} grid grid-cols-3 gap-6 px-6 py-12 z-20`}
       >
         <Card
           foodname="Pizza"
@@ -131,9 +122,35 @@ function Menu() {
           addToCart={handleAddToCart}
           cartItems={cartItems}
         />
+        <Card
+          foodname="Chicken Burger"
+          image={imglink}
+          details="Juicy chicken burger"
+          longDetails={details}
+          price={90}
+          addToCart={handleAddToCart}
+          cartItems={cartItems}
+        />
+        <Card
+          foodname="Chicken Pasta"
+          image={imglink}
+          details="Creamy Alfredo pasta"
+          longDetails={details}
+          price={90}
+          addToCart={handleAddToCart}
+          cartItems={cartItems}
+        />
+        <Card
+          foodname="Chicken Pasta"
+          image={imglink}
+          details="Creamy Alfredo pasta"
+          longDetails={details}
+          price={90}
+          addToCart={handleAddToCart}
+          cartItems={cartItems}
+        />
       </div>
 
-      {/* Cart side panel */}
       {isCartOpen && (
         <Cart
           cartItems={cartItems}
