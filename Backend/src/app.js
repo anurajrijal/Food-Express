@@ -3,6 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import passport from './config/passport.js';
 
+
 const app = express();
 
 // CORS configuration
@@ -22,8 +23,11 @@ app.use(express.static("public"));
 app.use(cookieParser());
 app.use(passport.initialize());
 
+
 // Routes
 import userRouter from './routes/user.routes.js';
+import foodRouter from './routes/food.routes.js';
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/food", foodRouter);
 
 export { app };

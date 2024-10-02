@@ -11,12 +11,6 @@ import {
   updateUserAvatar,
 } from "../controllers/user.controller.js";
 
-import { addFood,
-  updateFoodItem,
-  deleteFood,
-  getAllFoodItems 
-} from "../controllers/food.controller.js";
-
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { manageUserRole, getAllUsers, deleteUser } from "../controllers/admin.controller.js";
@@ -99,8 +93,5 @@ router.get('/users', verifyJWT, authorizeRoles('admin'), getAllUsers);
 router.delete('/users/:id', verifyJWT, authorizeRoles('admin'), deleteUser);
 
 
-router.post('/food',verifyJWT,authorizeRoles('admin'),upload.single('fimage'),addFood);
-router.patch('/upadtefood',verifyJWT, authorizeRoles('admin'), upload.single('fimage'),updateFoodItem);
-router.delete('/deletefood',verifyJWT,authorizeRoles('admin'),deleteFood);
-router.get('/allfood',getAllFoodItems);
+
 export default router;
