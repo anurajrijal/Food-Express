@@ -1,72 +1,104 @@
 .container {
   display: flex;
+
   min-height: 100vh;
 }
 
 .leftSection {
   flex: 1;
-  background-color: #0C3E32;
+
+  background-color: #0c3e32;
+
   color: white;
+
   padding: 2rem;
+
   display: flex;
+
   flex-direction: column;
+
   justify-content: center;
+
   max-width: 40%;
 }
 
 .logo img {
   max-width: 200px;
+
   margin-bottom: 2rem;
 }
 
 .leftSection h2 {
   font-size: 2rem;
+
   margin-bottom: 1rem;
 }
 
 .leftSection p {
   font-size: 1rem;
+
   margin-bottom: 2rem;
 }
 
 .dots {
   display: flex;
+
   gap: 0.5rem;
 }
 
 .dots span {
   width: 10px;
+
   height: 10px;
+
   background-color: white;
+
   border-radius: 50%;
 }
 
 .rightSection {
   flex: 1;
+
   padding: 2rem;
+
   display: flex;
+
   flex-direction: column;
+
   justify-content: center;
 }
 
 .rightSection h1 {
   font-size: 1rem;
+
   margin-bottom: 1rem;
 }
 
 .googleButton {
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
   width: 100%;
+
   padding: 0.75rem;
+
   background-color: white;
+
   color: #757575;
+
   border: 1px solid #dadce0;
+
   border-radius: 4px;
+
   font-size: 1rem;
+
   cursor: pointer;
+
   transition: background-color 0.3s ease;
+
   transition: box-shadow 0.3s ease; /* Add transition for smooth animation */
 }
 
@@ -80,30 +112,43 @@
 
 .divider {
   text-align: center;
+
   margin: 1rem 0;
+
   color: #757575;
+
   font-size: 0.9rem;
 }
 
 .tabs {
   display: flex;
+
   margin-bottom: 1rem;
 }
 
 .tab {
   flex: 1;
+
   background: none;
+
   border: none;
+
   color: #757575;
+
   font-size: 1rem;
+
   padding: 0.5rem;
+
   cursor: pointer;
+
   transition: all 0.3s ease;
+
   border-bottom: 2px solid transparent;
 }
 
 .activeTab {
   color: #000;
+
   border-bottom: 2px solid #000;
 }
 
@@ -113,98 +158,134 @@
 
 .inputGroup label {
   display: block;
+
   margin-bottom: 0.5rem;
+
   color: #202124;
+
   font-size: 0.9rem;
 }
 
 .inputGroup input {
   width: 100%;
+
   padding: 0.75rem;
+
   border: 1px solid #dadce0;
+
   border-radius: 4px;
+
   font-size: 1rem;
+
   background-color: #f5f5f5;
 }
 
 .inputGroup input:focus {
   outline: none;
-  border: 2px solid #FF6753;
+
+  border: 2px solid #ff6753;
 }
 
 .rememberMe {
   display: flex;
+
   align-items: center;
+
   margin-bottom: 1rem;
+
   font-size: 0.9rem;
+
   color: #392121;
 }
 
 .rememberMe input {
   margin-right: 0.5rem;
-  color: #FF6753 !important;
+
+  color: #ff6753 !important;
 }
 
 .privacyPolicy {
   font-size: 0.8rem;
+
   color: #5f6368;
+
   margin-bottom: 1rem;
+
   line-height: 1.4;
 }
 
 .submitButton {
   width: 100%;
+
   padding: 0.75rem;
-  background-color: #FF6753;
+
+  background-color: #ff6753;
+
   color: white;
+
   border: none;
+
   border-radius: 4px;
+
   font-size: 1rem;
+
   cursor: pointer;
+
   transition: background-color 0.3s ease;
 }
 
 .submitButton:hover {
-  background-color: #FF5340;
+  background-color: #ff5340;
 }
 
 .submitButton:disabled {
-  background-color: #FFB3A7;
+  background-color: #ffb3a7;
+
   cursor: not-allowed;
 }
 
 .forgotPassword {
   text-align: center;
+
   margin-top: 1rem;
 }
 
 .forgotPassword a {
-  color: #FF6753;
+  color: #ff6753;
+
   text-decoration: none;
 }
 
 .forgotPassword a:hover {
   text-decoration: underline;
 }
-.heading{
+
+.heading {
   color: #000;
 }
-.googleButton{
+
+.googleButton {
   background-color: #f5f5f5;
-  color:#000;
-  box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.5); /* Increased blur for more depth */
-  -webkit-box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.5);
-  -moz-box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.5);
+
+  color: #000;
+
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5); /* Increased blur for more depth */
+
+  -webkit-box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
+
+  -moz-box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
+
   transition: box-shadow 0.3s ease; /* Smooth transition for box-shadow */
 }
 
 .googleButton:active {
-  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
-  -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
-  -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
-}
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
 
-/* some changes in signup page */
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+}
+/* --------- css changes in signup page --------- */
 
 .inputGroup input[type="file"] {
   padding: 0.5rem;
@@ -214,7 +295,6 @@
   background-color: #f5f5f5;
   width: 100%;
 }
-
 .inputGroup input[type="file"]::-webkit-file-upload-button {
   background-color: #FF6753;
   color: white;
@@ -225,16 +305,7 @@
 }
 
 .inputGroup input[type="file"]::-webkit-file-upload-button:hover {
-  background-color: #FF5340;
-}
-.error {
-  color: #ff0000;
-  background-color: #ffebee;
-  border: 1px solid #ffcdd2;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  background-color: #ff5340;
 }
 .success {
   color: #4caf50;
@@ -245,3 +316,14 @@
   border-radius: 4px;
   font-size: 0.9rem;
 }
+.error {
+  color: #ff0000;
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/* --------- css changes in signup page --------- */

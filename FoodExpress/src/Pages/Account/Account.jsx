@@ -86,16 +86,17 @@ function Account() {
       });
       const token = response.data.data.accessToken;
       if (!token) throw new Error("Token not found in response");
-
-      Cookies.set("token", token, {
-        path: "/",
-        secure: false,
-        sameSite: "Lax",
-      });
+      
+      Cookies.set("token", token, { path: "/", secure: false, sameSite: "Lax" });
       alert("Login successful!");
       navigate("/");
     } catch (error) {
-      handleError(error, "Login failed");
+      // Check for specific error messages and set them
+      if (error.response && error.response.status === 401) {
+        setError("Invalid username or password");
+      } else {
+        handleError(error, "Login failed");
+      }
     }
   };
 
@@ -114,8 +115,8 @@ function Account() {
 
       await axiosInstance.post("/v1/users/register", formDataToSend, {
         headers: {
-          "Content-Type": "multipart/form-data",
-        },
+          'Content-Type': 'multipart/form-data',
+        }, 
         withCredentials: true,
       });
 
@@ -123,7 +124,12 @@ function Account() {
       setActiveTab("signIn");
       setFormData({ ...formData, password: "" });
     } catch (error) {
-      handleError(error, "Signup failed");
+      // Check for specific error messages and set them
+      if (error.response && error.response.status === 409) {
+        setError("Username or email already exists");
+      } else {
+        handleError(error, "Signup failed");
+      }
     }
   };
 
@@ -132,10 +138,7 @@ function Account() {
     if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
-      setError(
-        error.response.data.message ||
-          `${defaultMessage}: ${error.response.status}`
-      );
+      setError(error.response.data.message || `${defaultMessage}: ${error.response.status}`);
     } else if (error.request) {
       // The request was made but no response was received
       setError("No response received from server. Please try again later.");
@@ -152,10 +155,7 @@ function Account() {
           <img src="/path/to/your/logo.png" alt="We need a designer" />
         </div>
         <h2>Welcome</h2>
-        <p>
-          Kolm is here to help businesses in overcoming problems related to slow
-          agencies and unreliable freelancers.
-        </p>
+        <p>Kolm is here to help businesses in overcoming problems related to slow agencies and unreliable freelancers.</p>
         <div className={styles.dots}>
           <span></span>
           <span></span>
@@ -163,40 +163,29 @@ function Account() {
         </div>
       </div>
       <div className={styles.rightSection}>
-        <h1 className={styles.heading}>
-          {activeTab === "signIn"
-            ? "Sign in to Food Express"
-            : "Sign up to Food Express"}
-        </h1>
+        <h1 className={styles.heading}>{activeTab === "signIn" ? "Sign in to Food Express" : "Sign up to Food Express"}</h1>
         <button className={styles.googleButton} onClick={handleGoogleAuth}>
-          <FaGoogle /> {activeTab === "signIn" ? "Sign in" : "Sign up"} with
-          Google
+          <FaGoogle /> {activeTab === "signIn" ? "Sign in" : "Sign up"} with Google
         </button>
         <div className={styles.divider}>
           or {activeTab === "signIn" ? "sign in" : "sign up"} with email
         </div>
         <div className={styles.tabs}>
           <button
-            className={`${styles.tab} ${
-              activeTab === "signIn" ? styles.activeTab : ""
-            }`}
+            className={`${styles.tab} ${activeTab === "signIn" ? styles.activeTab : ""}`}
             onClick={() => handleTabClick("signIn")}
           >
             Sign In
           </button>
           <button
-            className={`${styles.tab} ${
-              activeTab === "signUp" ? styles.activeTab : ""
-            }`}
+            className={`${styles.tab} ${activeTab === "signUp" ? styles.activeTab : ""}`}
             onClick={() => handleTabClick("signUp")}
           >
             Sign Up
           </button>
         </div>
         {error && <div className={styles.error}>{error}</div>}
-        {successMessage && (
-          <div className={styles.success}>{successMessage}</div>
-        )}
+        {successMessage && <div className={styles.success}>{successMessage}</div>}
         <form onSubmit={handleSubmit}>
           {activeTab === "signUp" && (
             <>
@@ -233,11 +222,7 @@ function Account() {
             </>
           )}
           <div className={styles.inputGroup}>
-            <label htmlFor="email">
-              {activeTab === "signIn"
-                ? "Username or email address *"
-                : "Email address *"}
-            </label>
+            <label htmlFor="email">{activeTab === "signIn" ? "Username or email address *" : "Email address *"}</label>
             <input
               id="email"
               type="email"
@@ -266,26 +251,16 @@ function Account() {
           )}
           {activeTab === "signUp" && (
             <div className={styles.privacyPolicy}>
-              Your personal data will be used to support your experience
-              throughout this website, to manage access to your account, and for
-              other purposes described in our privacy policy.
+              Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy.
             </div>
           )}
-          <button
-            type="submit"
-            className={styles.submitButton}
-            disabled={loading}
-          >
-            {loading
-              ? "Processing..."
-              : activeTab === "signIn"
-              ? "Sign In"
-              : "Sign Up"}
+          <button type="submit" className={styles.submitButton} disabled={loading}>
+            {loading ? "Processing..." : activeTab === "signIn" ? "Sign In" : "Sign Up"}
           </button>
         </form>
         {activeTab === "signIn" && (
           <div className={styles.forgotPassword}>
-            <a href="/forgot-password">Lost your password?</a>
+            <a href="/forgot-password">Forgot password?</a>
           </div>
         )}
       </div>
