@@ -1,189 +1,247 @@
-body {
-  margin: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
 .container {
   display: flex;
-  width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 
-h1 {
-  color: black;
+.leftSection {
+  flex: 1;
+  background-color: #0C3E32;
+  color: white;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 40%;
+}
+
+.logo img {
+  max-width: 200px;
+  margin-bottom: 2rem;
+}
+
+.leftSection h2 {
   font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px !important;
+  margin-bottom: 1rem;
 }
 
-.loginGoogle {
-  background-color: #495e57;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100%;
-  height: 40px;
-  margin-bottom: 15px; 
-}
-/* Tabs navigation */
-
-/* Div containers */
-.div1 {
-  background-color: #495e57;
-  width: 40%;
-  height: 100vh;
+.leftSection p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
 }
 
-.div2 {
-  width: 60%;
-  height: 100vh;
+.dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dots span {
+  width: 10px;
+  height: 10px;
   background-color: white;
+  border-radius: 50%;
 }
 
-/* Form container */
-.formContainer {
+.rightSection {
+  flex: 1;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 20px; /* Padding around the form */
 }
 
-/* Adjust form height */
-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 400px; /* Width remains the same */
-  height: auto; /* Adjust height dynamically based on content */
-  max-height: 500px; /* Limit the maximum height */
-  overflow-y: auto; /* Enable vertical scroll if content exceeds max-height */
-  margin: 0 auto; /* Center the form horizontally */
-}
-
-/* Adjust input padding and margin */
-form input {
-  padding: 8px; /* Adjust padding */
-  margin-bottom: 8px; /* Reduce margin */
-}
-
-/* Adjust button padding */
-form button {
-  padding: 8px 16px; /* Adjust padding */
-}
-
-/* Input group for form */
-.inputGroup {
-  margin-bottom: 8px; /* Reduce margin */
-  display: flex;
-  flex-direction: column;
-  color: black;
-}
-
-label {
-  margin-bottom: 4px; /* Reduce margin */
-  font-weight: bold;
-}
-
-input {
-  padding: 8px; /* Adjust padding */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f0f0f0;
-}
-
-input:focus {
-  outline: none;
-}
-
-/* Checkbox styling */
-.checkbox {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.checkboxLabel {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
+.rightSection h1 {
   font-size: 1rem;
-  position: relative;
+  margin-bottom: 1rem;
 }
 
-.customCheckbox {
-  display: inline-block;
-  height: 20px;
-  width: 20px;
-  background-color: #f1f1f1;
-  border: 2px solid #ccc;
+.googleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: white;
+  color: #757575;
+  border: 1px solid #dadce0;
   border-radius: 4px;
-  margin-right: 10px;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-  position: relative;
-}
-
-.checkbox:checked + .customCheckbox {
-  background-color: #495e57;
-  border-color: #495e57;
-}
-
-.checkbox:checked + .customCheckbox::after {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 2px;
-  width: 6px;
-  height: 12px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-.checkboxLabel:hover .customCheckbox {
-  background-color: #ddd;
-  border-color: #999;
-}
-
-/* Additional form elements */
-.forgotPassword {
-  color: black;
   font-size: 1rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 15px; /* Reduce margin */
-}
-
-.loginButton {
-  background-color: #495e57;
-  color: white;
-  border: none;
-  border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 15px; /* Reduce margin */
+  transition: background-color 0.3s ease;
+  transition: box-shadow 0.3s ease; /* Add transition for smooth animation */
 }
 
-.underline {
-  border-bottom: 2px solid #000; /* Adjust the color and thickness as needed */
+.googleButton:hover {
+  background-color: #f5f5f5;
 }
+
+.googleButton svg {
+  margin-right: 0.5rem;
+}
+
 .divider {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 15px; /* Reduce margin */
+  text-align: center;
+  margin: 1rem 0;
+  color: #757575;
+  font-size: 0.9rem;
 }
-.eyeButton {
-  background-color: #495e57;
+
+.tabs {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.tab {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #757575;
+  font-size: 1rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.activeTab {
+  color: #000;
+  border-bottom: 2px solid #000;
+}
+
+.inputGroup {
+  margin-bottom: 1rem;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #202124;
+  font-size: 0.9rem;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #f5f5f5;
+}
+
+.inputGroup input:focus {
+  outline: none;
+  border: 2px solid #FF6753;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #392121;
+}
+
+.rememberMe input {
+  margin-right: 0.5rem;
+  color: #FF6753 !important;
+}
+
+.privacyPolicy {
+  font-size: 0.8rem;
+  color: #5f6368;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #FF6753;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
+  font-size: 1rem;
   cursor: pointer;
-  margin-left: 10px;
-  margin-bottom: 15px; /* Reduce margin */
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #FF5340;
+}
+
+.submitButton:disabled {
+  background-color: #FFB3A7;
+  cursor: not-allowed;
+}
+
+.forgotPassword {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.forgotPassword a {
+  color: #FF6753;
+  text-decoration: none;
+}
+
+.forgotPassword a:hover {
+  text-decoration: underline;
+}
+.heading{
+  color: #000;
+}
+.googleButton{
+  background-color: #f5f5f5;
+  color:#000;
+  box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.5); /* Increased blur for more depth */
+  -webkit-box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.5);
+  transition: box-shadow 0.3s ease; /* Smooth transition for box-shadow */
+}
+
+.googleButton:active {
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
+}
+
+/* some changes in signup page */
+
+.inputGroup input[type="file"] {
+  padding: 0.5rem;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #f5f5f5;
+  width: 100%;
+}
+
+.inputGroup input[type="file"]::-webkit-file-upload-button {
+  background-color: #FF6753;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.inputGroup input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #FF5340;
+}
+.error {
+  color: #ff0000;
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+.success {
+  color: #4caf50;
+  background-color: #e8f5e9;
+  border: 1px solid #c8e6c9;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  font-size: 0.9rem;
 }

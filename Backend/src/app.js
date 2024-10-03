@@ -3,26 +3,27 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import passport from './config/passport.js';
 
-
 const app = express();
 
 // CORS configuration
 app.use(cors({
-    origin: process.env.FRONTEND_URL,  // Make sure this is set to 'http://localhost:5173' in your .env file
+    origin: process.env.FRONTEND_URL,  // 'http://localhost:5173' from your .env file
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-xsrf-token', 'X-Requested-With', 'Accept'] // Updated allowedHeaders
 }));
 
-// Add this line to handle preflight requests
+// Handle preflight requests
 app.options('*', cors());
 
-app.use(express.json({ limit: "16kb" }));
-app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+// Body parsers with increased limit
+app.use(express.json({ limit: "50mb" })); // Updated limit to 50MB
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+
+// Static files, cookies, and passport initialization
 app.use(express.static("public"));
 app.use(cookieParser());
 app.use(passport.initialize());
-
 
 // Routes
 import userRouter from './routes/user.routes.js';
