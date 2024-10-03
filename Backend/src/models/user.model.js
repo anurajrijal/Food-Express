@@ -45,7 +45,7 @@ const userSchema = new Schema(
         },
         googleId:{
             type:String,
-            sparse: true
+            unique:true
         },
         refreshToken:{
             type:String,

@@ -9,7 +9,6 @@ import mongoose from 'mongoose';
 import validator from 'validator';
 
 
-
 const generateAccessAndRefereshTokens = async(userId) =>{
   try {
       const user = await User.findById(userId)
@@ -85,7 +84,6 @@ const avatar = await uploadOnCloudinary(avatarLocalPath);
 if(!avatar){
   throw new ApiError(400,"Avartra missing")
 }
-
 
 const user = await User.create(
   {
