@@ -17,17 +17,15 @@ function Account() {
   });
   const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
-      alert("You are already logged in!");
-      navigate("/");
+      navigate("/", { state: { message: "You are already logged in!" } });
     }
 
-    // Check for success message in location state
     if (location.state?.successMessage) {
       setSuccessMessage(location.state.successMessage);
       setActiveTab("signIn");
@@ -38,23 +36,25 @@ function Account() {
     setActiveTab(tab);
     setFormData({ email: "", password: "", username: "", fullName: "" });
     setAvatar(null);
-    setError("");
+    setErrors({});
     setSuccessMessage("");
   };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
+    // Clear the error for this field when the user starts typing
+    setErrors({ ...errors, [e.target.id]: "" });
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       if (file.size > 50 * 1024 * 1024) {
-        setError("Avatar file size must be less than 50MB");
+        setErrors({ ...errors, avatar: "Avatar file size must be less than 50MB" });
         e.target.value = null;
       } else {
         setAvatar(file);
-        setError("");
+        setErrors({ ...errors, avatar: "" });
       }
     }
   };
@@ -66,7 +66,7 @@ function Account() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
+    setErrors({});
     setSuccessMessage("");
 
     if (activeTab === "signIn") {
@@ -87,23 +87,18 @@ function Account() {
       const token = response.data.data.accessToken;
       if (!token) throw new Error("Token not found in response");
       
-      Cookies.set("token", token, { path: "/", secure: false, sameSite: "Lax" });
-      alert("Login successful!");
-      navigate("/");
+      Cookies.set("token", token, { path: "/", secure: false , sameSite: "Lax" });
+      navigate("/", { state: { message: "Login successful!" } });
     } catch (error) {
-      // Check for specific error messages and set them
-      if (error.response && error.response.status === 401) {
-        setError("Invalid username or password");
-      } else {
-        handleError(error, "Login failed");
-      }
+      handleError(error, "login");
     }
   };
 
   const handleSignUp = async () => {
     try {
       if (!avatar) {
-        throw new Error("Avatar is required");
+        setErrors({ ...errors, avatar: "Avatar is required" });
+        return;
       }
 
       const formDataToSend = new FormData();
@@ -124,27 +119,31 @@ function Account() {
       setActiveTab("signIn");
       setFormData({ ...formData, password: "" });
     } catch (error) {
-      // Check for specific error messages and set them
-      if (error.response && error.response.status === 409) {
-        setError("Username or email already exists");
-      } else {
-        handleError(error, "Signup failed");
-      }
+      handleError(error, "signup");
     }
   };
 
-  const handleError = (error, defaultMessage) => {
+  const handleError = (error, action) => {
     console.error("Error:", error);
     if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      setError(error.response.data.message || `${defaultMessage}: ${error.response.status}`);
+      const { status, data } = error.response;
+      switch (status) {
+        case 400:
+          setErrors(data.errors || { general: "Invalid input. Please check your details." });
+          break;
+        case 401:
+          setErrors({ general: action === "login" ? "Invalid email or password." : "Authentication failed." });
+          break;
+        case 409:
+          setErrors({ general: "Username or email already exists." });
+          break;
+        default:
+          setErrors({ general: `An error occurred. Please try again later.` });
+      }
     } else if (error.request) {
-      // The request was made but no response was received
-      setError("No response received from server. Please try again later.");
+      setErrors({ general: "No response received from server. Please try again later." });
     } else {
-      // Something happened in setting up the request that triggered an Error
-      setError(error.message || defaultMessage);
+      setErrors({ general: error.message || `${action === "login" ? "Login" : "Signup"} failed. Please try again.` });
     }
   };
 
@@ -152,7 +151,7 @@ function Account() {
     <div className={styles.container}>
       <div className={styles.leftSection}>
         <div className={styles.logo}>
-          <img src="/path/to/your/logo.png" alt="We need a designer" />
+          {/* <img src="/path/to/your/logo.png" alt="We need a designer" /> */}
         </div>
         <h2>Welcome</h2>
         <p>Kolm is here to help businesses in overcoming problems related to slow agencies and unreliable freelancers.</p>
@@ -184,7 +183,7 @@ function Account() {
             Sign Up
           </button>
         </div>
-        {error && <div className={styles.error}>{error}</div>}
+        {errors.general && <div className={styles.error}>{errors.general}</div>}
         {successMessage && <div className={styles.success}>{successMessage}</div>}
         <form onSubmit={handleSubmit}>
           {activeTab === "signUp" && (
@@ -198,6 +197,7 @@ function Account() {
                   onChange={handleChange}
                   required
                 />
+                {errors.username && <div className={styles.fieldError}>{errors.username}</div>}
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="fullName">Full Name *</label>
@@ -208,6 +208,7 @@ function Account() {
                   onChange={handleChange}
                   required
                 />
+                {errors.fullName && <div className={styles.fieldError}>{errors.fullName}</div>}
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="avatar">Avatar * (Max 50MB)</label>
@@ -218,11 +219,12 @@ function Account() {
                   onChange={handleFileChange}
                   required
                 />
+                {errors.avatar && <div className={styles.fieldError}>{errors.avatar}</div>}
               </div>
             </>
           )}
           <div className={styles.inputGroup}>
-            <label htmlFor="email">{activeTab === "signIn" ? "Username or email address *" : "Email address *"}</label>
+            <label htmlFor="email">{activeTab === "signIn" ? "Email address *" : "Email address *"}</label>
             <input
               id="email"
               type="email"
@@ -230,6 +232,7 @@ function Account() {
               onChange={handleChange}
               required
             />
+            {errors.email && <div className={styles.fieldError}>{errors.email}</div>}
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="password">Password *</label>
@@ -240,6 +243,7 @@ function Account() {
               onChange={handleChange}
               required
             />
+            {errors.password && <div className={styles.fieldError}>{errors.password}</div>}
           </div>
           {activeTab === "signIn" && (
             <div className={styles.rememberMe}>

@@ -325,5 +325,14 @@
   border-radius: 4px;
   font-size: 0.9rem;
 }
+/* Add these new styles to your existing CSS file */
+
+.fieldError {
+  color: #ff0000;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+
 
 /* --------- css changes in signup page --------- */
