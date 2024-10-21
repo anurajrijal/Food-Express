@@ -1,33 +1,10 @@
 import React from "react";
-import styles from "./Checkout.module.css"; // assuming custom styles if any
+import { useLocation } from "react-router-dom";
+import styles from "./Checkout.module.css";
 
 function Checkout() {
-  const products = [
-    {
-      id: 1,
-      name: "Product 1",
-      price: "$10.00",
-      color: "Red",
-      size: "M",
-      imageSrc: "path/to/image1.jpg",
-      imageAlt: "Image of Product 1",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: "$20.00",
-      color: "Blue",
-      size: "L",
-      imageSrc: "path/to/image2.jpg",
-      imageAlt: "Image of Product 2",
-    },
-  ];
-
-  const subtotal = "$30.00";
-  const discount = { code: "SAVE10", amount: "$3.00" };
-  const taxes = "$2.00";
-  const shipping = "$5.00";
-  const total = "$34.00";
+  const location = useLocation();
+  const { cartItems, totalPrice } = location.state || { cartItems: [], totalPrice: 0 };
 
   return (
     <>
@@ -47,38 +24,21 @@ function Checkout() {
             role="list"
             className="flex-auto overflow-y-auto divide-y divide-black px-6"
           >
-            {products.map((product) => (
+            {cartItems.map((item, index) => (
               <li
-                key={product.id}
+                key={index}
                 className="flex py-6 space-x-6 border-b border-black"
               >
                 <img
-                  src={product.imageSrc}
-                  alt={product.imageAlt}
+                  src={item.image || "path/to/default-image.jpg"}
+                  alt={item.foodname}
                   className="flex-none w-40 h-40 object-center object-cover bg-white border border-black rounded-md"
                 />
                 <div className="flex flex-col justify-between space-y-4">
                   <div className="text-sm font-medium space-y-1">
-                    <h3>{product.name}</h3>
-                    <p>{product.price}</p>
-                    <p>{product.color}</p>
-                    <p>{product.size}</p>
-                  </div>
-                  <div className="flex space-x-4">
-                    <button
-                      type="button"
-                      className="text-sm font-medium hover:underline"
-                    >
-                      Edit
-                    </button>
-                    <div className="flex border-l border-black pl-4">
-                      <button
-                        type="button"
-                        className="text-sm font-medium hover:underline"
-                      >
-                        Remove
-                      </button>
-                    </div>
+                    <h3>{item.foodname}</h3>
+                    <p>RS {item.price}</p>
+                    <p>Quantity: {item.quantity}</p>
                   </div>
                 </div>
               </li>
@@ -112,28 +72,19 @@ function Checkout() {
             <dl className="text-sm font-medium mt-10 space-y-6">
               <div className="flex justify-between">
                 <dt>Subtotal</dt>
-                <dd>{subtotal}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt className="flex">
-                  Discount
-                  <span className="ml-2 rounded-full bg-gray-200 text-xs py-0.5 px-2 tracking-wide">
-                    {discount.code}
-                  </span>
-                </dt>
-                <dd>-{discount.amount}</dd>
+                <dd>RS {totalPrice}</dd>
               </div>
               <div className="flex justify-between">
                 <dt>Taxes</dt>
-                <dd>{taxes}</dd>
+                <dd>RS {(totalPrice * 0.13).toFixed(2)}</dd>
               </div>
               <div className="flex justify-between">
                 <dt>Shipping</dt>
-                <dd>{shipping}</dd>
+                <dd>RS 0</dd>
               </div>
               <div className="flex items-center justify-between border-t border-black text-black pt-6">
                 <dt className="text-base">Total</dt>
-                <dd className="text-base">{total}</dd>
+                <dd className="text-base">RS {(totalPrice * 1.13).toFixed(2)}</dd>
               </div>
             </dl>
           </div>
@@ -150,7 +101,7 @@ function Checkout() {
               className={`${styles["esewaBtn"]} w-full flex items-center justify-center bg-black border border-transparent text-white rounded-md py-2  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black`}
             >
               <span className="sr-only">Pay with Esewa</span>
-              {/* SVG for Apple Pay */}
+              {/* SVG for Esewa Pay */}
             </button>
 
             <div className="relative mt-8">

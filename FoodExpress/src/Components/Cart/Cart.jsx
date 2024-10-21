@@ -1,8 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import styles from "./Cart.module.css"
 
 function Cart({ cartItems, toggleCart, handleUpdateCartItem, handleRemoveFromCart, totalPrice }) {
   return (
     <div className="fixed right-0 top-0 h-full w-1/3 bg-white shadow-2xl z-50 overflow-y-auto transform transition-transform duration-300 ease-out">
+      <div className={styles.innerdiv}>
       {/* Cart Header */}
       <div className="flex justify-between items-center p-5 bg-gray-900 text-white">
         <h2 className="text-lg font-semibold tracking-wide">Your Cart</h2>
@@ -80,9 +83,15 @@ function Cart({ cartItems, toggleCart, handleUpdateCartItem, handleRemoveFromCar
               </div>
             </dl>
       <div className="p-6 border-t border-gray-200">
-        <button className="w-full bg-green-500 text-white py-3 rounded-lg font-medium hover:bg-green-600 transition-colors">
+        <Link 
+          to="/checkout" 
+          state={{ cartItems, totalPrice }}
+          onClick={toggleCart}
+          className={`${styles["checkoutbtn"]} w-full bg-green-500 text-white py-3 rounded-lg font-medium text-center block`}
+        >
           Checkout (Total: RS {totalPrice})
-        </button>
+        </Link>
+      </div>
       </div>
     </div>
   );

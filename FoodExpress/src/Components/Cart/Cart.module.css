@@ -2,16 +2,16 @@
     z-index: 500;
     background-color: #ffffff;
   }
-.checkoutButton {
-    position: fixed;
-    bottom: 0;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    text-align: center;
+.checkoutbtn{
+    
+    box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5); /* Increased blur for more depth */
+
+    -webkit-box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
+  
+    -moz-box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.5);
   }
   
+.innerdiv{
+  margin: 15px;
+  color: black;
+}
